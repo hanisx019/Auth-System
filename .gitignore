@@ -1,0 +1,21 @@
+# Ignore environment variable files
+server/.env
+server/.env.*
+client/.env
+client/.env.*
+
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
