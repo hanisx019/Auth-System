@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken"; // JWT module for token generation and verificat
 import User from "../models/userModel.js"; // User model for database operations
 import transporter from "../config/nodemailer.js"; // Nodemailer transporter for sending emails
 
+import { EMAIL_VERIFY_TEMPLATE , PASSWORD_RESET_TEMPLATE } from "../config/emailTemplates.js";
+
 // Register a new user
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -141,7 +143,7 @@ export const sendverifyOtp = async (req, res) => {
       from: process.env.SENDER_EMAIL,
       to: user.email,
       subject: "Verify Your Account",
-      text: `Your verification OTP is ${otp}. It is valid for 24 hours.`,
+      html:EMAIL_VERIFY_TEMPLATE.replace("{{otp}}", otp).replace("{{email}}", user.email)
     };
 
     await transporter.sendMail(mailOptions);
@@ -198,6 +200,7 @@ export const isAuthenticated = async (req, res) => {
   }
 };
 
+// Password reset request - send OTP to email
 export const passResetOtp = async (req, res) => {
   const { email } = req.body;
   if (!email) {
@@ -224,7 +227,7 @@ export const passResetOtp = async (req, res) => {
         from: process.env.SENDER_EMAIL,
         to: user.email,
         subject: "Reset Your Password",
-        text: `Your OTP is ${otp}. It is valid for 24 hours.`,
+        html:PASSWORD_RESET_TEMPLATE.replace("{{otp}}", otp).replace("{{email}}", user.email)
       };
 
       try {
@@ -242,6 +245,7 @@ export const passResetOtp = async (req, res) => {
   }
 };
 
+// Verify OTP and reset password
 export const passResetVerifyOTP = async (req, res) => {
   const { email , otp , newPassword} = req.body;
 

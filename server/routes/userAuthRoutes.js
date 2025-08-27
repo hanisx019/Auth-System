@@ -8,9 +8,9 @@ router.post('/login', login );
 router.post('/logout', logout );
 router.post('/send-verify-otp',userAuth, sendverifyOtp);
 router.post('/verify-email',userAuth, verifyEmail);
-router.get('/is-suth',userAuth, isAuthenticated);
-router.post('/reset-password',userAuth, passResetOtp);
-router.post('/password-changed',userAuth, passResetVerifyOTP);
+router.get('/is-auth',userAuth, isAuthenticated);
+router.post('/reset-password', passResetOtp);
+router.post('/password-changed', passResetVerifyOTP);
 
 export default router;
 

@@ -4,3 +4,23 @@
 *{
     font-family: "Outfit", sans-serif;
 }
+
+/* Force transparent bg for inputs, even on paste/autofill */
+input[type="email"] {
+  background-color: transparent !important;
+  color: white !important;
+  -webkit-text-fill-color: #6A77AF !important; /* Fixes Chrome autofill text */
+  box-shadow: 0 0 0px 1000px transparent inset !important; /* Removes white bg */
+  caret-color: white; /* cursor color */
+}
+
+/* Optional: handle autofill state */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
